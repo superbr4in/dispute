@@ -13,7 +13,7 @@ TEST_CASE("test1")
 
     flag_filter const filter(
         {
-            flag({ 'a' }, &apple)
+            flag(&apple, { 'a' })
         });
 
     filter(args);
@@ -32,8 +32,8 @@ TEST_CASE("test2")
 
     flag_filter const filter(
         {
-            flag({ 'a' }, &apple),
-            flag({ 'b' }, &banana)
+            flag(&apple,  { 'a' }),
+            flag(&banana, { 'b' })
         });
 
     filter(args);
@@ -53,8 +53,8 @@ TEST_CASE("test3")
 
     flag_filter const filter(
         {
-            flag({ 'a' }, &apple),
-            flag({ 'b' }, &banana)
+            flag(&apple,  { 'a' }),
+            flag(&banana, { 'b' })
         });
 
     filter(args);
@@ -73,7 +73,7 @@ TEST_CASE("test4")
 
     flag_filter const filter(
         {
-            flag({ "apple" }, &apple)
+            flag(&apple, { "apple" })
         });
 
     filter(args);
@@ -81,4 +81,22 @@ TEST_CASE("test4")
     CHECK(args.empty());
 
     CHECK(apple);
+}
+
+TEST_CASE("test5")
+{
+    std::list<std::string> args = { "--apple=osx" };
+
+    std::string apple;
+
+    flag_filter const filter(
+        {
+            flag(&apple, { "apple" })
+        });
+
+    filter(args);
+
+    CHECK(args.empty());
+
+    CHECK(apple == "osx");
 }

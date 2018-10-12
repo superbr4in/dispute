@@ -11,32 +11,28 @@ namespace disp
 {
     class flag
     {
-        std::vector<std::variant<char, std::string>> const labels_;
+        std::variant<bool*, std::string*> const value_pointer_;
 
-        std::variant<bool*, std::string*> const value_;
+        std::vector<std::variant<char, std::string>> const labels_;
 
     public:
 
         flag(
-            std::vector<std::variant<char, std::string>> const& labels,
-            std::variant<bool*, std::string*> const& value);
+            std::variant<bool*, std::string*> value_pointer,
+            std::vector<std::variant<char, std::string>> labels);
 
-        std::vector<std::variant<char, std::string>> const& labels() const;
+        void set_value(std::variant<bool, std::string> const& value) const;
 
-        void set_value(bool value) const;
-        void set_value(std::string const& value) const;
+        std::vector<std::variant<char, std::string>> const& operator*() const;
     };
 
     class flag_filter
     {
-        std::vector<flag> const flags_;
-
-        std::unordered_multimap<char, flag const*> short_labels_;
-        std::unordered_multimap<std::string, flag const*> long_labels_;
+        std::unordered_multimap<std::variant<char, std::string>, flag> flag_map_;
 
     public:
 
-        explicit flag_filter(std::vector<flag> flags);
+        explicit flag_filter(std::vector<flag> const& flags);
 
         void operator()(std::list<std::string>& arguments) const;
     };

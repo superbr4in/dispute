@@ -1,26 +1,20 @@
 #include <dispute/dispute.h>
 
 disp::flag::flag(
-    std::vector<std::variant<char, std::string>> const& labels,
-    std::variant<bool*, std::string*> const& value)
-    : labels_(labels), value_(value) { }
+    std::variant<bool*, std::string*> const value_pointer,
+    std::vector<std::variant<char, std::string>> const labels)
+    : value_pointer_(std::move(value_pointer)), labels_(std::move(labels)) { }
 
-std::vector<std::variant<char, std::string>> const& disp::flag::labels() const
+void disp::flag::set_value(std::variant<bool, std::string> const& value) const
+{
+    if (std::holds_alternative<bool*>(value_pointer_))
+        *std::get<bool*>(value_pointer_) = std::get<bool>(value);
+
+    if (std::holds_alternative<std::string*>(value_pointer_))
+        *std::get<std::string*>(value_pointer_) = std::get<std::string>(value);
+}
+
+std::vector<std::variant<char, std::string>> const& disp::flag::operator*() const
 {
     return labels_;
-}
-
-void disp::flag::set_value(bool const value) const
-{
-    if (!std::holds_alternative<bool*>(value_))
-        throw std::invalid_argument("Invalid value");
-
-    *std::get<bool*>(value_) = value;
-}
-void disp::flag::set_value(std::string const& value) const
-{
-    if (!std::holds_alternative<std::string*>(value_))
-        throw std::invalid_argument("Invalid value");
-
-    *std::get<std::string*>(value_) = value;
 }
