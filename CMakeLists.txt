@@ -7,7 +7,8 @@ set ( CMAKE_RUNTIME_OUTPUT_DIRECTORY "bin/" )
 
 add_library ( dispute SHARED
     "source/flag.cpp"
-    "source/flag_filter.cpp" )
+    "source/flag_filter.cpp"
+    "source/format_string.cpp" )
 
 target_include_directories ( dispute PUBLIC
     "include/"

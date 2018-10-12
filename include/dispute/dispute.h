@@ -1,7 +1,6 @@
 #pragma once
 
 #include <list>
-#include <optional>
 #include <string>
 #include <unordered_map>
 #include <variant>
@@ -9,6 +8,20 @@
 
 namespace disp
 {
+    class format_string
+    {
+        std::vector<std::string> constants_;
+        std::vector<std::pair<bool, char>> variables_;
+
+    public:
+
+        format_string();
+
+        explicit format_string(std::string const& base);
+
+        std::string operator()(std::unordered_map<char, int> const& value_map) const;
+    };
+
     class flag
     {
         std::variant<bool*, std::string*> const value_pointer_;
