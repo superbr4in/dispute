@@ -1,4 +1,4 @@
-#include <dispute/dispute.h>
+#include <dispute/dispute.hpp>
 
 disp::flag::flag(
     std::variant<bool*, std::string*> const value_pointer,

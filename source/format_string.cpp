@@ -1,6 +1,6 @@
 #include <sstream>
 
-#include <dispute/dispute.h>
+#include <dispute/dispute.hpp>
 
 disp::format_string::format_string()
 {

@@ -11,8 +11,7 @@ add_library ( dispute SHARED
     "source/format_string.cpp" )
 
 target_include_directories ( dispute PUBLIC
-    "include/"
-    "submodules/simple-visitation/include/" )
+    "include/" )
 
 add_executable ( dispute_test
     "test/dispute_test.cpp" )

@@ -1,4 +1,4 @@
-#include <dispute/dispute.h>
+#include <dispute/dispute.hpp>
 
 disp::flag_filter::flag_filter(std::vector<flag> const& flags)
 {
